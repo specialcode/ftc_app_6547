@@ -32,22 +32,29 @@ public class BotAutonRed extends LinearOpMode {
         MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
                 new TimeUnit(Values.DRIVE_BUCKET));
 
-
         //Turn to align flush
-        MotorRunner.run(this, motorLeft, -Power.FULL_SPEED,
+        MotorRunner.run(this, motorLeft, Power.FULL_SPEED,
                 new TimeUnit(Values.TURN_FLUSH));
+
+        //Drive up to wall
+        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
+                new TimeUnit(Values.DRIVE_FLUSH));
 
         //Dump
         dump.setPosition(Values.DUMP_DOWN);
         Thread.sleep(1000);
         dump.setPosition(Values.DUMP_UP);
 
+        //Drive back
+        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, Power.FULL_SPEED,
+                new TimeUnit(Values.DRIVE_FLUSH));
+
         //Turn back
         MotorRunner.run(this, motorLeft, -Power.FULL_SPEED,
                 new TimeUnit(Values.TURN_FLUSH));
 
         //Drive to align with the mountain
-        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
+        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, Power.FULL_SPEED,
                 new TimeUnit(Values.DRIVE_AWAY));
 
         //Turn towards the mountain

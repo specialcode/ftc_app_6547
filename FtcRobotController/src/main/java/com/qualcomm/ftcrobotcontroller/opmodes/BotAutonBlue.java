@@ -31,7 +31,7 @@ public class BotAutonBlue extends LinearOpMode {
                 new EncoderUnit((int) (Values.DRIVE_BUCKET * EncoderUnit.ROTATION_ANDYMARK)));
 
         //Turn to align flush
-        MotorRunner.run(this, motorLeft, -Power.FULL_SPEED,
+        MotorRunner.run(this, motorRight, Power.FULL_SPEED,
                 new TimeUnit(Values.TURN_FLUSH));
 
         //Dump
