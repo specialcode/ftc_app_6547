@@ -39,4 +39,7 @@ public class Values {
     public static final String TAPE_2 = "tape2";
 
     public static final String DUMP = "dump";
+
+    public static final String GYRO = "gyro";
+
 }

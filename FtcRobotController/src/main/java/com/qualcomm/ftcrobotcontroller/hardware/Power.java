@@ -11,6 +11,8 @@ public class Power {
     public static final double FULL_STOP = 0.0;
     public static final double SLOW_SPEED = 0.4;
 
+    public static final int KP = 10;
+
     /**
      * Curves a value with a cubic eqaution
      * Intended to be used with controller input
@@ -36,6 +38,15 @@ public class Power {
             return 0;
         }
         return x;
+    }
+
+    public static double pidMod(int gyro, int target) {
+        int error = gyro - target;
+        if (error == 0) {
+            return 0;
+        }
+
+        return KP * error;
     }
 
 }
