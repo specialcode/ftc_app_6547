@@ -11,12 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class BotAutonRed extends LinearOpMode {
+public class BotAutonBlue2 extends LinearOpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
-
-    DcMotor tape1;
 
     Servo dump;
 
@@ -30,31 +28,18 @@ public class BotAutonRed extends LinearOpMode {
         //Wait for motors to initialize
         Thread.sleep(1000);
 
-        //Drive to mountain, backwards
+        //Drive to floor goal, backwards
         MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
-                new TimeUnit(Values.DRIVE_FLUSH_RED));
+                new TimeUnit(Values.DRIVE_FLOORGOAL));
 
-        //Turn to align with mountain
-        motorRight.setPower(-Power.FULL_SPEED);
-        MotorRunner.run(this, motorLeft, Power.FULL_SPEED,
-                new TimeUnit(Values.TURN_MOUNTAIN));
-        motorRight.setPower(0);
+        //Turn to align with floor goal
+        MotorRunner.run(this, motorRight, Power.FULL_SPEED,
+                new TimeUnit(Values.TURN_FLUSH));
+        //Dump climbers??
+        dump.setPosition(Values.DUMP_DOWN);
+        Thread.sleep(1000);
+        dump.setPosition(Values.DUMP_UP);
 
-        //Drive up mountain
-        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, Power.FULL_SPEED,
-                new TimeUnit(Values.DRIVE_MOUNTAIN));
-
-        //Try to grab a churro
-        MotorRunner.run(this, tape1, Power.SLOW_SPEED,
-                new TimeUnit(Values.SEND_TAPE));
-        motorLeft.setPower(Power.FULL_SPEED);
-        motorRight.setPower(Power.FULL_SPEED);
-        for (int i = 0; i < Values.TAPE_TIMES; i++) {
-            MotorRunner.run(this, tape1, -Power.NORMAL_SPEED,
-                    new TimeUnit(Values.RETRACT_TAPE));
-            Thread.sleep(250);
-        }
-        stopMotors();
     }
 
     public void initMotors() {
@@ -62,8 +47,6 @@ public class BotAutonRed extends LinearOpMode {
 
         motorRight = manager.getMotor(Values.RIGHT_MOTOR);
         motorLeft = manager.getMotor(Values.LEFT_MOTOR);
-
-        tape1 = manager.getMotor(Values.TAPE_1);
 
         dump = manager.getServo(Values.DUMP);
     }
@@ -73,4 +56,5 @@ public class BotAutonRed extends LinearOpMode {
         motorRight.setPower(Power.FULL_STOP);
     }
 }
+
 

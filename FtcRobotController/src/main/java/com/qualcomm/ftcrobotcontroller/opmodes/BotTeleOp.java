@@ -56,30 +56,30 @@ public class BotTeleOp extends OpMode {
         tape1.setPower(Power.speedCurve(gamepad2.left_stick_y));
         tape2.setPower(Power.speedCurve(gamepad2.right_stick_y));
 
-        if (gamepad2.left_bumper && !btnSideLeft) {
+        if (gamepad2.right_bumper && !btnSideLeft) {
             btnSideLeft = true;
             if (leftArm.getPosition() == Values.SIDE_ARM_IN)
                 leftArm.setPosition(Values.SIDE_ARM_OUT);
             else
                 leftArm.setPosition(Values.SIDE_ARM_IN);
-        } else if (!gamepad2.left_bumper) {
+        } else if (!gamepad2.right_bumper) {
             btnSideLeft = false;
         }
 
-        if (gamepad2.right_bumper && !btnSideRight) {
+        if (gamepad2.left_bumper && !btnSideRight) {
             btnSideRight = true;
             if (rightArm.getPosition() == Values.SIDE_ARM_IN)
                 rightArm.setPosition(Values.SIDE_ARM_OUT);
             else
                 rightArm.setPosition(Values.SIDE_ARM_IN);
-        } else if (!gamepad2.right_bumper) {
+        } else if (!gamepad2.left_bumper) {
             btnSideRight = false;
         }
 
         if (gamepad2.y) {
-            dump.setPosition(Values.DUMP_UP);
+            dump.setPosition(Power.powerClamp(dump.getPosition() + Values.SERVO_INCREMENT));
         } else if (gamepad2.a) {
-            dump.setPosition(Values.DUMP_DOWN);
+            dump.setPosition(Power.powerClamp(dump.getPosition() - Values.SERVO_INCREMENT));
         }
 
         telemetry.addData("Title", "***Robot Data***");

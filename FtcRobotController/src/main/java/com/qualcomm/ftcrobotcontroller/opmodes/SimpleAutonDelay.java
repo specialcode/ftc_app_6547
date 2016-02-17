@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class BotAutonRed extends LinearOpMode {
+/**
+ * Created by tucker on 1/30/16.
+ */
+public class SimpleAutonDelay extends LinearOpMode {
 
     DcMotor motorRight;
     DcMotor motorLeft;
@@ -28,33 +31,11 @@ public class BotAutonRed extends LinearOpMode {
         //Autonomous starts here
 
         //Wait for motors to initialize
-        Thread.sleep(1000);
+        Thread.sleep(10000);
 
         //Drive to mountain, backwards
         MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
-                new TimeUnit(Values.DRIVE_FLUSH_RED));
-
-        //Turn to align with mountain
-        motorRight.setPower(-Power.FULL_SPEED);
-        MotorRunner.run(this, motorLeft, Power.FULL_SPEED,
-                new TimeUnit(Values.TURN_MOUNTAIN));
-        motorRight.setPower(0);
-
-        //Drive up mountain
-        MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, Power.FULL_SPEED,
-                new TimeUnit(Values.DRIVE_MOUNTAIN));
-
-        //Try to grab a churro
-        MotorRunner.run(this, tape1, Power.SLOW_SPEED,
-                new TimeUnit(Values.SEND_TAPE));
-        motorLeft.setPower(Power.FULL_SPEED);
-        motorRight.setPower(Power.FULL_SPEED);
-        for (int i = 0; i < Values.TAPE_TIMES; i++) {
-            MotorRunner.run(this, tape1, -Power.NORMAL_SPEED,
-                    new TimeUnit(Values.RETRACT_TAPE));
-            Thread.sleep(250);
-        }
-        stopMotors();
+                new TimeUnit(Values.DRIVE_SIMPLE));
     }
 
     public void initMotors() {
@@ -72,5 +53,5 @@ public class BotAutonRed extends LinearOpMode {
         motorLeft.setPower(Power.FULL_STOP);
         motorRight.setPower(Power.FULL_STOP);
     }
-}
 
+}

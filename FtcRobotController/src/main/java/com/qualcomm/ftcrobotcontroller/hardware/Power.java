@@ -9,6 +9,7 @@ public class Power {
     public static final double FULL_SPEED = 1.0;
     public static final double SLOW_TURN = 0.15;
     public static final double FULL_STOP = 0.0;
+    public static final double SLOW_SPEED = 0.4;
 
     /**
      * Curves a value with a cubic eqaution
