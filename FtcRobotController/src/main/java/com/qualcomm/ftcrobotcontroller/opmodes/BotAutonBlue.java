@@ -39,8 +39,8 @@ public class BotAutonBlue extends LinearOpMode {
         dump.setPosition(Values.DUMP_UP);
 
 
-                //Turn to align with mountain
-                motorLeft.setPower(-Power.FULL_SPEED);
+        //Turn to align with mountain
+        motorLeft.setPower(-Power.FULL_SPEED);
         MotorRunner.run(this, motorRight, Power.FULL_SPEED,
                 new TimeUnit(Values.TURN_MOUNTAIN));
         motorRight.setPower(0);

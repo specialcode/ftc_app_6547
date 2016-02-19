@@ -13,16 +13,16 @@ public class Values {
     public static final double SIDE_ARM_OUT = 0.5;
 
     public static final double DUMP_UP = 0.0;
-    public static final double DUMP_DOWN = 0.2;
+    public static final double DUMP_DOWN = 0.25;
 
     public static final float DRIVE_FLUSH_BLUE = 3.75f;
     public static final float DRIVE_FLUSH_RED = 3.9f;
-    public static final float DRIVE_FLOORGOAL = 6f;
+    public static final float DRIVE_FLOORGOAL = 8.3f;
     public static final float DRIVE_MOUNTAIN = 4.6f;
 
     public static final float DRIVE_SIMPLE = 6.5f;
 
-    public static final float TURN_MOUNTAIN = 0.95f;
+    public static final float TURN_MOUNTAIN = 0.90f;
     public static final float TURN_FLUSH = 0.7f;
 
     public static final float SEND_TAPE = 3.5f;

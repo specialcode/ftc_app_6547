@@ -36,7 +36,7 @@ public class BotAutonRed extends LinearOpMode {
         //Turn to align with floor goal
         MotorRunner.run(this, motorLeft, Power.FULL_SPEED,
                 new TimeUnit(Values.TURN_FLUSH));
-        //Attempt to Deliver Climbers
+        //Attempt to Deliver Climbers (DOWN to UP didn't work first time)
         dump.setPosition(Values.DUMP_DOWN);
         Thread.sleep(1000);
         dump.setPosition(Values.DUMP_UP);
