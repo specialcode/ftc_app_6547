@@ -30,9 +30,16 @@ public class BotAutonRed extends LinearOpMode {
         //Wait for motors to initialize
         Thread.sleep(1000);
 
-        //Drive to mountain, backwards
+        //Drive to floorgoal, backwards
         MotorRunner.run(this, new DcMotor[]{motorLeft, motorRight}, -Power.FULL_SPEED,
-                new TimeUnit(Values.DRIVE_FLUSH_RED));
+                new TimeUnit(Values.DRIVE_FLOORGOAL));
+        //Turn to align with floor goal
+        MotorRunner.run(this, motorLeft, Power.FULL_SPEED,
+                new TimeUnit(Values.TURN_FLUSH));
+        //Attempt to Deliver Climbers
+        dump.setPosition(Values.DUMP_DOWN);
+        Thread.sleep(1000);
+        dump.setPosition(Values.DUMP_UP);
 
         //Turn to align with mountain
         motorRight.setPower(-Power.FULL_SPEED);
