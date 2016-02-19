@@ -18,7 +18,7 @@ public class Values {
     public static final float DRIVE_FLUSH_BLUE = 3.75f;
     public static final float DRIVE_FLUSH_RED = 3.9f;
     public static final float DRIVE_FLOORGOAL = 6f;
-    public static final float DRIVE_MOUNTAIN = 5f;
+    public static final float DRIVE_MOUNTAIN = 4.6f;
 
     public static final float DRIVE_SIMPLE = 6.5f;
 
