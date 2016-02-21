@@ -39,6 +39,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.hardware.usb.UsbManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -80,7 +84,7 @@ public class FtcRobotControllerActivity extends Activity {
   private static final int NUM_GAMEPADS = 2;
 
   public static final String CONFIGURE_FILENAME = "CONFIGURE_FILENAME";
-
+  public  static  Float CurrentAccelerometerValue =0F;
   protected WifiManager.WifiLock wifiLock;
   protected SharedPreferences preferences;
 
@@ -175,6 +179,31 @@ public class FtcRobotControllerActivity extends Activity {
 
     WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
     wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "");
+
+      try
+      {
+          SensorManager sMan = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+          // Second, get the sensor you're interested in
+          Sensor accelerometer = sMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+          SensorEventListener accelerometerListener = new SensorEventListener()
+          {
+              public void onAccuracyChanged(Sensor sensor, int accuracy )
+              {
+                  // do things if you're interested in accuracy changes
+              }
+
+              public void onSensorChanged(SensorEvent event)
+              {
+                  CurrentAccelerometerValue = event.values[0];
+              }
+          };
+      }
+      catch(Exception ex)
+      {
+
+      }
 
     hittingMenuButtonBrightensScreen();
 
