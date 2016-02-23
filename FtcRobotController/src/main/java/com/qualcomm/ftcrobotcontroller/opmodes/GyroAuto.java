@@ -63,22 +63,20 @@ public class GyroAuto extends  LinearOpMode
         while (opModeIsActive())
         {
             waitOneFullHardwareCycle();
-            telemetry.addData("Starting Gyro:", pidController.Target );
+            telemetry.addData("Starting Gyro:", pidController.Target);
+            telemetry.addData("Starting Gyro:", pidController.gyro.getDeviceName());
             pidController.CalculateMotorPowers();
             telemetry.addData("leftPower", pidController.LeftPower);
             telemetry.addData("rightPower", pidController.RightPower);
-            telemetry.addData("GyroHeading:", pidController.Current );
+            telemetry.addData("GyroHeading:", pidController.Current);
             left.setPower(pidController.LeftPower);
-
             right.setPower(pidController.RightPower);
-
             telemetry.addData("Gyro", gyro.getHeading());
             telemetry.addData("Gyro", gyro.getHeading());
             telemetry.addData("Accelerometer X:", CurrentX);
             telemetry.addData("Accelerometer Y:", CurrentY);
             telemetry.addData("Accelerometer Z:", CurrentZ);
             waitOneFullHardwareCycle();
-
             loopCount++;
             telemetry.addData("Cycles", loopCount);
 

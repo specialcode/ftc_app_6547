@@ -32,7 +32,7 @@ public class GyroPIDController
         Forward,
         Reverse
     }
-    public double KP = 10;
+    public double KP = 15;
     public double basePower = .50;
     public double Target =0;
     public double Current =0;
@@ -42,12 +42,12 @@ public class GyroPIDController
     public double AdustedBasePower = 0f;
     private GyroMotorDirection direction = GyroMotorDirection.Forward;
 
-        GyroSensor gyro = null;
+    public ModernRoboticsI2cGyro gyro = null;
 
     public GyroPIDController(GyroSensor gyroSensor)
     {
-        gyro = gyroSensor;
-        ((ModernRoboticsI2cGyro)gyro).setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN);
+        gyro = ((ModernRoboticsI2cGyro)gyroSensor);
+        gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN); // Changing these does nothing
 
     }
 
@@ -60,7 +60,7 @@ public class GyroPIDController
 
             this.gyro.calibrate();
 
-            while (this.gyro.isCalibrating())
+            while (this.gyro.getHeading()!=0)
             {
                 //wait
             }
@@ -70,8 +70,12 @@ public class GyroPIDController
     public void CalculateMotorPowers()
     {
         Current = gyro.getHeading();
+        if(Current > 180)
+        {
+            Current = Current-360;
+        }
         Error = Target - Current;
-        if(Error==0)
+        if(Error == -1 || Error==0)
         {
             LeftPower = CleanPower(AdustedBasePower);
             RightPower = CleanPower(AdustedBasePower);
@@ -84,15 +88,15 @@ public class GyroPIDController
         //When forward motor powers are positive
         if(this.GetMotorDirection() == GyroMotorDirection.Forward)
         {
-            LeftPower = CleanPower(AdustedBasePower + adjustedError);
-            RightPower = CleanPower(AdustedBasePower - adjustedError);
+            LeftPower = CleanPower(AdustedBasePower - adjustedError);
+            RightPower = CleanPower(AdustedBasePower + adjustedError);
         }
 
         //When reverse motor powers are negative
         if(this.GetMotorDirection() == GyroMotorDirection.Reverse)
         {
-            LeftPower = CleanPower(AdustedBasePower - adjustedError);
-            RightPower = CleanPower(AdustedBasePower + adjustedError);
+            LeftPower = CleanPower(AdustedBasePower + adjustedError);
+            RightPower = CleanPower(AdustedBasePower - adjustedError);
         }
     }
 
