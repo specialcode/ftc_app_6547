@@ -74,8 +74,9 @@ public class GyroPIDController
         {
             Current = Current-360;
         }
+
         Error = Target - Current;
-        if(Error == -1 || Error==0)
+        if(Error==0)
         {
             LeftPower = CleanPower(AdustedBasePower);
             RightPower = CleanPower(AdustedBasePower);
