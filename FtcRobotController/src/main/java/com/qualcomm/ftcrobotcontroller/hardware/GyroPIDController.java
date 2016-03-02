@@ -21,7 +21,7 @@ public class GyroPIDController {
     private double leftPower = 0;
     private double rightPower = 0;
 
-    private double adustedBasePower = 0f;
+    private double directionalPower = 0f;
 
     private DcMotor.Direction direction = DcMotor.Direction.FORWARD;
 
@@ -47,34 +47,37 @@ public class GyroPIDController {
     }
 
     /**
-     * Reads from the sensor and updates the recomended gyro values.
+     * Reads from the sensor and updates the recommended gyro values.
      */
     public void update() {
+
+        //Read the gyro values
         double current = gyro.getHeading();
         if (current > 180) {
             current = current - 360;
         }
 
+        //Calculate the error in gyro terms
         double error = getTarget() - current;
         if (error == 0) {
-            leftPower = Power.powerClamp(adustedBasePower);
-            rightPower = Power.powerClamp(adustedBasePower);
+            leftPower = Power.powerClamp(directionalPower);
+            rightPower = Power.powerClamp(directionalPower);
             return;
         }
 
-
-        double adjustedError = (error * KP) / 100;
+        //Convert the gyro values to something power-relevant
+        double powerError = (error * KP) / 100;
 
         //When forward motor powers are positive
-        if (this.getMotorDirection() == DcMotor.Direction.FORWARD) {
-            leftPower = Power.powerClamp(adustedBasePower - adjustedError);
-            rightPower = Power.powerClamp(adustedBasePower + adjustedError);
+        if (getMotorDirection() == DcMotor.Direction.FORWARD) {
+            leftPower = Power.powerClamp(directionalPower - powerError);
+            rightPower = Power.powerClamp(directionalPower + powerError);
         }
 
         //When reverse motor powers are negative
-        if (this.getMotorDirection() == DcMotor.Direction.REVERSE) {
-            leftPower = Power.powerClamp(adustedBasePower + adjustedError);
-            rightPower = Power.powerClamp(adustedBasePower - adjustedError);
+        if (getMotorDirection() == DcMotor.Direction.REVERSE) {
+            leftPower = Power.powerClamp(directionalPower + powerError);
+            rightPower = Power.powerClamp(directionalPower - powerError);
         }
     }
 
@@ -138,10 +141,12 @@ public class GyroPIDController {
      */
     public void setDirection(DcMotor.Direction value) {
         direction = value;
+
+        //Update the power to be relative to our direction
         if (value == DcMotor.Direction.FORWARD) {
-            this.adustedBasePower = BASE_POWER;
+            this.directionalPower = BASE_POWER;
         } else {
-            this.adustedBasePower = BASE_POWER * -1;
+            this.directionalPower = BASE_POWER * -1;
         }
     }
 
