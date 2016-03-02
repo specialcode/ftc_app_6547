@@ -62,10 +62,8 @@ public class FtcOpModeRegister implements OpModeRegister {
       manager.register("Blue Auton", BotAutonBlue.class);
     manager.register("Simple Auton", SimpleAuton.class);
     manager.register("Simple Auton w/ Delay", SimpleAutonDelay.class);
-    manager.register("Encoder Test", EncoderTest.class);
-    manager.register("Run Encoders", RunEncoders.class);
-    manager.register("Gyro Test", GyroTest.class);
-    manager.register("GyroDrive", GyroDrive.class);
-    manager.register("GyroAutono" , GyroAuto.class);
+    //manager.register("Encoder Test", EncoderTest.class);
+    //manager.register("Run Encoders", RunEncoders.class);
+    manager.register("Gyro Test", GyroAuto.class);
   }
 }

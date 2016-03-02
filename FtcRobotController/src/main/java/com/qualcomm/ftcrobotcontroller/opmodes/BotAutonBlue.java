@@ -24,7 +24,7 @@ public class BotAutonBlue extends LinearOpMode {
         waitForStart();
         //Autonomous starts here
 
-        //Wait for motors to initialize
+        //Wait for motors to calibrate
         Thread.sleep(1000);
 
         //Drive to floorgoal, backwards

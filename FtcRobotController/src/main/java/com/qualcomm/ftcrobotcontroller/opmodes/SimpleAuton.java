@@ -30,7 +30,7 @@ public class SimpleAuton extends LinearOpMode {
         Log.w("Auton", "Starting Auton");
         //Autonomous starts here
 
-        //Wait for motors to initialize
+        //Wait for motors to calibrate
         Thread.sleep(1000);
 
         //Drive to mountain, backwards

@@ -11,8 +11,6 @@ public class Power {
     public static final double FULL_STOP = 0.0;
     public static final double SLOW_SPEED = 0.4;
 
-    public static final double KP = 1.25;
-
     /**
      * Curves a value with a cubic eqaution
      * Intended to be used with controller input
@@ -39,102 +37,5 @@ public class Power {
         }
         return x;
     }
-
-    public static double pidMod(int gyro, int target)
-    {
-        int error = gyro - target;
-        if(error == 0)
-        {
-            return Power.NORMAL_SPEED;
-        }
-        else
-        {
-            return KP * error/100;
-        }
-    }
-
-    public static double LeftDrivePID(double gyro, double target, double power)
-    {
-        //Motors are running reverse
-        double error=0f;
-        double returnValue;
-        if(gyro <= 180)
-        {
-            error = gyro+ target;
-        }
-       if(gyro <=360 && gyro >180)
-        {
-            error = target -Math.abs(gyro-360);
-            if(error==0)
-            {
-                error =-1;
-            }
-        }
-        if(error == 0)
-        {
-            return -.80;
-        }
-
-        if(error < 0) // We are turning left - give more power to left and less to right
-        {
-            returnValue =  power - Math.abs((KP * error)/100);
-        }
-        else
-        {
-            returnValue= power +  Math.abs((KP* error)/100);
-        }
-
-        return CleanPower(returnValue);
-    }
-
-    public static double RightDrivePID(double gyro, double target, double power)
-    {
-        double error=0f;
-        double returnValue;
-        if(gyro <= 180 )
-        {
-            error = gyro+ target;
-        }
-        if(gyro <=360 && gyro >180)
-        {
-            error = target -Math.abs(gyro-359);
-            if(error==0)
-            {
-                error =-1;
-            }
-        }
-
-        if(error == 0)
-        {
-            return -.70;
-        }
-
-
-        if(error > 0) // We are turning right - give more power to right and less to left
-        {
-            returnValue =  power - Math.abs((KP * error)/100);
-
-        }
-        else
-        {
-            returnValue= power +  Math.abs((KP* error)/100);
-        }
-
-        return CleanPower(returnValue);
-    }
-
-    //Ensure powerrange is between -1 and 1
-public static double CleanPower(double dirtyValue)
-{
-    if(dirtyValue<=-1)
-    {
-        return -.80;
-    }
-    if(dirtyValue >=1)
-    {
-        return .80;
-    }
-    return dirtyValue;
-}
 
 }
