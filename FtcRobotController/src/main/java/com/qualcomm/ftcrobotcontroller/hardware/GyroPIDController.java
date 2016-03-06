@@ -4,6 +4,11 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by STACK0V3RFL0W on 2/20/2016.
+ *
+ * For an example of class usage see the unit tests
+ *  ---    testUsageExample()  in GyroPIDControllerTest in androidTest folder
+ *
+ *
  */
 public class GyroPIDController {
     public GyroSensor gyro = null;
@@ -13,13 +18,17 @@ public class GyroPIDController {
     double error = 0;
     double leftPower = 0;
     double rightPower = 0;
+
+    // use to store the power as a percentage
     double adjustedBasePower = 0f;
-    private double current = 0;
+    double current = 0;
+    boolean isInitialized = false;
+
     private gyroMotorDirection direction = gyroMotorDirection.Forward;
 
     public GyroPIDController(GyroSensor gyroSensor) {
         gyro = gyroSensor;
-        //gyro.setHeadingMode(ModernRoboticsI2cGyro.HeadingMode.HEADING_CARTESIAN); // Changing these does nothing
+
     }
 
     public gyroMotorDirection getMotorDirection() {
@@ -60,6 +69,10 @@ public class GyroPIDController {
         this.rightPower = rightPower;
     }
 
+    public boolean getIsInitialized() {
+        return this.isInitialized;
+    }
+
     public double getCurrent() {
         return current;
     }
@@ -78,10 +91,14 @@ public class GyroPIDController {
         while (this.gyro.getHeading() != 0) {
             //wait
         }
+        this.isInitialized = true;
         this.setCurrent(this.gyro.getHeading());
     }
 
     public void calculateMotorPowers() {
+        if (!this.isInitialized) {
+            throw new ExceptionInInitializerError("You must initialize- call initialize first.");
+        }
         setCurrent(gyro.getHeading());
         if (getCurrent() > 180) {
             setCurrent(getCurrent() - 360);
@@ -94,7 +111,7 @@ public class GyroPIDController {
             return;
         }
 
-
+// the motors run below 1 so we are going to divide by 100 to get it to a decimal range
         double adjustedError = (error * KP) / 100;
 
         //When forward motor powers are positive
@@ -120,6 +137,7 @@ public class GyroPIDController {
         return dirtyValue;
     }
 
+    // A new enum was created here as opposed to the one in the motors class so GyroPidController will not have an unneeded dependency
     public enum gyroMotorDirection {
         Forward,
         Reverse
