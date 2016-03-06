@@ -14,12 +14,12 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class GyroAuto extends  LinearOpMode
 {
 
-    private double loopCount=0;
     public static double CurrentX = 0f;
     public static double CurrentY = 0f;
     public static double CurrentZ = 0f;
     public static double StartingGyroValue=0f;
     private static SensorManager mSensorManager;
+    private double loopCount = 0;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -49,22 +49,22 @@ public class GyroAuto extends  LinearOpMode
             gyro = new NullGyro();
         }
         GyroPIDController pidController = new GyroPIDController(gyro);
-        pidController.setDirection(DcMotor.Direction.REVERSE);
-        pidController.calibrate();
-        pidController.setTarget(0);
+        //  pidController.setDirection(DcMotor.Direction.REVERSE);
+        //  pidController.calibrate();
+        //   pidController.setTarget(0);
 
 
         while (opModeIsActive())
         {
             waitOneFullHardwareCycle();
-            telemetry.addData("Starting Gyro:", pidController.getTarget());
-            telemetry.addData("Starting Gyro:", gyro.getDeviceName());
-            pidController.update();
-            telemetry.addData("leftPower", pidController.getLeftPower());
-            telemetry.addData("rightPower", pidController.getRightPower());
-            telemetry.addData("GyroHeading:", gyro.getHeading());
-            left.setPower(pidController.getLeftPower());
-            right.setPower(pidController.getRightPower());
+            //     telemetry.addData("Starting Gyro:", pidController.getTarget());
+            //     telemetry.addData("Starting Gyro:", gyro.getDeviceName());
+            //     pidController.update();
+            //      telemetry.addData("leftPower", pidController.getLeftPower());
+            //    telemetry.addData("rightPower", pidController.getRightPower());
+            //      telemetry.addData("GyroHeading:", gyro.getHeading());
+            //      left.setPower(pidController.getLeftPower());
+            //     right.setPower(pidController.getRightPower());
             telemetry.addData("Gyro", gyro.getHeading());
             telemetry.addData("Gyro", gyro.getHeading());
             telemetry.addData("Accelerometer X:", CurrentX);

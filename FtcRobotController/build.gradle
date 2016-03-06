@@ -44,6 +44,7 @@ dependencies {
     compile(name: 'ModernRobotics-release', ext: 'aar')
     compile(name: 'Analytics-release', ext: 'aar')
     compile(name: 'WirelessP2p-release', ext: 'aar')
+    compile files('libs/JUNIT/junit-4.12.jar')
 }
 
 task genJavadoc(type: Javadoc) {

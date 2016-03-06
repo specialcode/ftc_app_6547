@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  */
 public class NullGyro extends GyroSensor
 {
+    int _heading = 0;
 
     @Override
     public void calibrate() {
@@ -20,9 +21,12 @@ public class NullGyro extends GyroSensor
 
     @Override
     public int getHeading() {
-        return 0;
+        return _heading;
     }
 
+    public void setHeading(int value) {
+        _heading = value;
+    }
     @Override
     public double getRotation() {
         return 0;
