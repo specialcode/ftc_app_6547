@@ -17,6 +17,7 @@ public class CycleTimer {
         if (lastTime == 0) {
             lastTime = System.nanoTime();
         }
+        
         delta = (double) (lastTime - System.nanoTime()) / 1000000000.0;
         lastTime = System.nanoTime();
     }
