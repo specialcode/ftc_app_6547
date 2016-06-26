@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 /**
  * Created by STACK0V3RFL0W on 2/17/2016.
  */
-public class NullGyro extends GyroSensor
+public class NullGyro implements GyroSensor
 {
     int _heading = 0;
 
