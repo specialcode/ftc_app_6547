@@ -23,12 +23,28 @@ public class Power {
     }
 
     /**
-     * Clamps a value between 0 and 1
+     * Clamps a value between -1 and 1
      *
      * @param x The value to clamp.
      * @return The clamped value.
      */
     public static double powerClamp(double x) {
+        if (x > 1) {
+            return 1;
+        }
+        if (x < -1) {
+            return -1;
+        }
+        return x;
+    }
+
+    /**
+     * Clamps a value between 0 and 1
+     *
+     * @param x The value to clamp.
+     * @return The clamped value.
+     */
+    public static double positionClamp(double x) {
         if (x > 1) {
             return 1;
         }

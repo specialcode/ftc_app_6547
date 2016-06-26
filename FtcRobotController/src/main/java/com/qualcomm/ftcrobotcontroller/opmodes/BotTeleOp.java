@@ -77,9 +77,9 @@ public class BotTeleOp extends OpMode {
         }
 
         if (gamepad2.y) {
-            dump.setPosition(Power.powerClamp(dump.getPosition() + Values.SERVO_INCREMENT));
+            dump.setPosition(Power.positionClamp(dump.getPosition() + Values.SERVO_INCREMENT));
         } else if (gamepad2.a) {
-            dump.setPosition(Power.powerClamp(dump.getPosition() - Values.SERVO_INCREMENT));
+            dump.setPosition(Power.positionClamp(dump.getPosition() - Values.SERVO_INCREMENT));
         }
 
         telemetry.addData("Title", "***Robot Data***");

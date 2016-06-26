@@ -42,4 +42,5 @@ public class Values {
 
     public static final String GYRO = "gyro";
 
+    public static final float DRIVE_SIMPLE_LONG = 7f;
 }
